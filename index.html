@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>100배 당첨금 게임</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #prize {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>당첨금 게임</h1>
+    <div id="prize">현재 당첨금: 10억원</div>
+    <button onclick="challenge()">도전</button>
+    <button onclick="giveUp()">포기</button>
+    <div id="message"></div>
+
+    <script>
+        let prize = 10;
+        let gameActive = true;
+
+        function updatePrize() {
+            document.getElementById('prize').innerText = `현재 당첨금: ${prize}억 원`;
+        }
+
+        function challenge() {
+            if (!gameActive) return;
+            const success = Math.random() < 0.5;
+            if (success) {
+                prize *= 100;
+                updatePrize();
+                document.getElementById('message').innerText = "당첨되었습니다!";
+            } else {
+                prize = 0;
+                updatePrize();
+                document.getElementById('message').innerText = "당첨되지 않았습니다. 당첨금이 사라집니다.";
+                gameActive = false;
+            }
+        }
+
+        function giveUp() {
+            if (!gameActive) return;
+            document.getElementById('message').innerText = `게임을 포기했습니다. 최종 당첨금은 ${prize}억 원입니다.`;
+            gameActive = false;
+        }
+    </script>
+</body>
+</html>
